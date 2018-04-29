@@ -1,24 +1,4 @@
-// Copyright (c) 2014-16, Joe Krachey
-// All rights reserved.
-//
-// Redistribution and use in binary form, with or without modification, 
-// are permitted provided that the following conditions are met:
-//
-// 1. Redistributions in binary form must reproduce the above copyright 
-//    notice, this list of conditions and the following disclaimer in 
-//    the documentation and/or other materials provided with the distribution.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
-// THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
-// PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
-// CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
-// EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
-// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
-// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-// NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
-// EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 
 #ifndef __IO_EXPANDER_H__
 #define __IO_EXPANDER_H__
@@ -28,6 +8,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include "gpio_port.h"
+#include <stdint.h>
+#include "driver_defines.h"
 #include "i2c.h"
 
 //*****************************************************************************
@@ -46,10 +28,10 @@
 #define   IO_EXPANDER_IRQ_GPIO_BASE       GPIOF_BASE
 #define   IO_EXPANDER_IRQ_PIN_NUM         PF0
 
-#define   DIR_BTN_UP_PIN                  0
-#define   DIR_BTN_DOWN_PIN                1
-#define   DIR_BTN_LEFT_PIN                2
-#define   DIR_BTN_RIGHT_PIN               3
+#define   DIR_BTN_UP_PIN                  (1<<0)
+#define   DIR_BTN_DOWN_PIN                (1<<1)
+#define   DIR_BTN_LEFT_PIN                (1<<2)
+#define   DIR_BTN_RIGHT_PIN               (1<<3)
 
 // Define the 7-bit Address of the MCP23017. 
 #define MCP23017_DEV_ID    		0x27
@@ -77,10 +59,10 @@
 #define MCP23017_OLATA_R 	    0x14 
 #define MCP23017_OLATB_R	    0x15 
 
-
-
-
+// initialize I2C and GPIO interrupt
 bool io_expander_init(void);
-void io_expander_write_reg(uint8_t reg, uint8_t data);
-uint8_t io_expander_read_reg(uint8_t);
+	
+// read value of buttons	
+uint8_t io_expander_read_buttons(void);
+
 #endif
